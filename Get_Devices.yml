@@ -1,0 +1,12 @@
+---
+- name: Get device information
+  hosts: FMC
+  gather_facts: no
+  tasks:
+    - name: Retrieve device facts
+      cisco.fmc.device_facts:
+        host: "150.1.7.242"
+      register: device_info
+    - name: Display device information
+      debug:
+        var: device_info
