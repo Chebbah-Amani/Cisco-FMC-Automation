@@ -7,6 +7,7 @@
      fmc_host: <150.1.7.242>
     fmc_username: <admin>
     fmc_password: <Admin123>
+    policy_name: "{{ access_policy_name | default('default_policy') }}"
   tasks:
     - name: Create Access Control Policy
       uri:
@@ -21,7 +22,7 @@
         validate_certs: no
         body:
           type: AccessPolicy
-          name: Ansiblepolicy
+          name: "{{ policy_name }}"
           defaultAction: BLOCK
       register: new_policy
 
