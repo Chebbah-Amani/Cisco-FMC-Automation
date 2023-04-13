@@ -1,0 +1,42 @@
+---
+- name: Deploy Access Control Policy to FMC
+  hosts: FMC
+  connection: local
+  gather_facts: no
+  vars:
+    fmc_host: <150.1.7.242>
+    fmc_username: <admin>
+    fmc_password: <Admin123>
+    domain_uuid: <e276abec-e0f2-11e3-8169-6d9ed49b625f> 
+    policy_name: "{{ tower_policy_name }}"
+  tasks:
+    - name: Get Access Control Policy ID
+      uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_uuid }}/policy/accesspolicies?filter=name:{{ policy_name }}"
+        method: GET
+        user: "{{ fmc_username }}"
+        password: "{{ fmc_password }}"
+        headers:
+          Accept: "application/json"
+        validate_certs: no
+      register: access_policy
+
+    - name: Deploy Access Control Policy
+      uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_uuid }}/policy/accesspolicies/{{ access_policy.json['items'][0]['id'] }}/deployabledevices"
+        method: POST
+        user: "{{ fmc_username }}"
+        password: "{{ fmc_password }}"
+        headers:
+          Accept: "application/json"
+          Content-Type: "application/json"
+        body_format: json
+        validate_certs: no
+        body:
+          forceDeploy: true
+          type: "PolicyDeploymentRequest"
+      register: deploy_policy
+
+    - name: Display Results
+      debug:
+        var: deploy_policy.json
