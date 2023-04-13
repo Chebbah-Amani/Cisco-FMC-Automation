@@ -1,6 +1,6 @@
 ---
 - name: Get Policies from Cisco FMC
-  hosts: fmc
+  hosts: FMC
   connection: httpapi
   gather_facts: no
   vars:
