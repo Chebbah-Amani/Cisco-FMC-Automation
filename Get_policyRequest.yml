@@ -1,0 +1,38 @@
+---
+- name: Get Policies from Cisco FMC
+  hosts: fmc
+  connection: httpapi
+  gather_facts: no
+  vars:
+    fmc_host: <150.1.7.242>
+    fmc_username: <admin>
+    fmc_password: <Admin123>
+  tasks:
+    - name: Get Access Control Policies
+      uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/default/policy/accesspolicies"
+        method: GET
+        user: "{{ fmc_username }}"
+        password: "{{ fmc_password }}"
+        headers:
+          Accept: "application/json"
+        validate_certs: no
+      register: access_policies
+
+    - name: Get Network Analysis Policies
+      uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/default/policy/networkanalysispolicies"
+        method: GET
+        user: "{{ fmc_username }}"
+        password: "{{ fmc_password }}"
+        headers:
+          Accept: "application/json"
+        validate_certs: no
+      register: net_policies
+
+    - name: Display Results
+      debug:
+        var: item.json
+      with_items:
+        - "{{ access_policies }}"
+        - "{{ net_policies }}"
