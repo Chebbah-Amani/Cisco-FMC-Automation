@@ -6,6 +6,8 @@
     - name: Retrieve device facts
       cisco.fmc.device_facts:
         host: "150.1.7.242"
+        username: "admin"
+        password: "Admin123"
       register: device_info
     - name: Display device information
       debug:
