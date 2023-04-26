@@ -1,39 +1,11 @@
----
-- name: Get device information using FMC API
+- name: Generate FMC API access token
   hosts: FMC
-  gather_facts: no
-  vars:
-    fmc_address: "FMC_IP_or_hostname"
-    fmc_username: "FMC_username"
-    fmc_password: "FMC_password"
-
   tasks:
     - name: Authenticate with FMC API
-      uri:
-        url: "https://{{ fmc_address }}/api/fmc_platform/v1/auth/generatetoken"
-        method: POST
-        headers:
-          Content-Type: "application/json"
-        body:
-          username: "{{ fmc_username }}"
-          password: "{{ fmc_password }}"
-        validate_certs: no
-      register: auth_response
+      command: "curl -k -H 'Content-Type: application/json' -X POST https://{{ fmc_address }}/api/fmc_platform/v1/auth/generatetoken -d '{\"username\":\"{{ fmc_username }}\",\"password\":\"{{ fmc_password }}\"}'"
+      register: curl_result
+      ignore_errors: true
 
-    - name: Save access token to variable
+    - name: Set access token fact
       set_fact:
-        access_token: "{{ auth_response.json.Token }}"
-
-    - name: Get device information
-      uri:
-        url: "https://{{ fmc_address }}/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/deviceclusters/devicegroup/device/{{ inventory_hostname }}"
-        method: GET
-        headers:
-          Content-Type: "application/json"
-          Authorization: "Bearer {{ access_token }}"
-        validate_certs: no
-      register: device_info
-
-    - name: Display device information
-      debug:
-        var: device_info.json
+        access_token: "{{ curl_result.stdout | from_json | json_query('Token') }}"
