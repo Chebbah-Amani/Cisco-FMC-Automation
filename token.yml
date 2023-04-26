@@ -1,0 +1,25 @@
+---
+- name: Generate FMC API access token
+  hosts: FMC
+  gather_facts: no
+  tasks:
+    - name: Authenticate with FMC API
+      uri:
+        url: https://{{ fmc_address }}/api/fmc_platform/v1/auth/generatetoken
+        method: POST
+        headers:
+          Content-Type: "application/json"
+        body_format: json
+        body:
+          username: "{{ fmc_username }}"
+          password: "{{ fmc_password }}"
+        validate_certs: no
+      register: token_response
+
+    - name: Set access token fact
+      set_fact:
+        access_token: "{{ token_response.json.access_token }}"
+
+    - name: Debug access token
+      debug:
+        var: access_token
