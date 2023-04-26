@@ -1,19 +1,26 @@
-- name: Generate and use access token for FMC API
+- name: Generate FMC API access token
   hosts: FMC
   gather_facts: no
   tasks:
     - name: Authenticate with FMC API
+      command: "curl -k -H 'Content-Type: application/json' -X POST https://{{ fmc_address }}/api/fmc_platform/v1/auth/generatetoken -d '{\"username\":\"{{ fmc_username }}\",\"password\":\"{{ fmc_password }}\"}'"
+      register: curl_result
+      ignore_errors: true
+
+    - name: Set access token fact
+      set_fact:
+        access_token: "{{ curl_result.stdout | from_json | json_query('Token') }}"
+
+    - name: Get device information
       uri:
-        url: "https://{{ fmc_address }}/api/fmc_platform/v1/auth/generatetoken"
-        method: POST
+        url: "https://{{ fmc_address }}/api/fmc_config/v1/domain/{{ domain_uuid }}/devices/{{ inventory_hostname }}"
+        method: GET
         headers:
           Content-Type: "application/json"
-        body:
-          username: "{{ fmc_username }}"
-          password: "{{ fmc_password }}"
+          X-auth-access-token: "{{ access_token }}"
         validate_certs: no
-      register: auth_response
+      register: device_info
 
-    - name: Save access token to variable
-      set_fact:
-        access_token: "{{ auth_response.json.Token }}"
+    - name: Display device information
+      debug:
+        var: device_info
