@@ -26,7 +26,7 @@
 
     - name: Get device information
       uri:
-        url: "https://{{ fmc_address }}/api/fmc_config/v1/domain/default/deviceclusters/devicegroup/device/{{ inventory_hostname }}"
+        url: "https://{{ fmc_address }}/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/deviceclusters/devicegroup/device/{{ inventory_hostname }}"
         method: GET
         headers:
           Content-Type: "application/json"
