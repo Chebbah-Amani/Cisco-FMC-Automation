@@ -1,7 +1,12 @@
 ---
-- name: Generate and use access token for FMC API
+- name: Get device information using FMC API
   hosts: FMC
   gather_facts: no
+  vars:
+    fmc_address: "FMC_IP_or_hostname"
+    fmc_username: "FMC_username"
+    fmc_password: "FMC_password"
+
   tasks:
     - name: Authenticate with FMC API
       uri:
@@ -20,11 +25,15 @@
         access_token: "{{ auth_response.json.Token }}"
 
     - name: Get device information
-      cisco.fmc.device_facts:
-        host: "{{ inventory_hostname }}"
-        access_token: "{{ access_token }}"
+      uri:
+        url: "https://{{ fmc_address }}/api/fmc_config/v1/domain/default/deviceclusters/devicegroup/device/{{ inventory_hostname }}"
+        method: GET
+        headers:
+          Content-Type: "application/json"
+          Authorization: "Bearer {{ access_token }}"
+        validate_certs: no
       register: device_info
 
     - name: Display device information
       debug:
-        var: device_info
+        var: device_info.json
