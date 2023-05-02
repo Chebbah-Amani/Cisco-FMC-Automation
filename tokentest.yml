@@ -1,0 +1,21 @@
+---
+- name: Generate FMC access token
+  hosts: fmc
+  gather_facts: no
+
+  vars:
+    fmc_host: "your_fmc_hostname_or_ip"
+    fmc_user: "your_fmc_username"
+    fmc_password: "your_fmc_password"
+
+  tasks:
+    - name: Generate FMC access token
+      fmcrestapi:
+        url: "https://{{ fmc_host }}/api/fmc_platform/v1/auth/generatetoken"
+        username: "{{ fmc_user }}"
+        password: "{{ fmc_password }}"
+      register: token_result
+
+    - name: Print access token
+      debug:
+        var: token_result.response.access_token
