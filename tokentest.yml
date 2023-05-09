@@ -1,6 +1,7 @@
 ---
 - name: Generate FMC access token
   hosts: fmc
+  connection: httpapi
   gather_facts: no
 
   vars:
