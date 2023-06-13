@@ -1,6 +1,7 @@
 ---
 - name: Generate FMC API access token
   hosts: all
+  connection : httpapi
   gather_facts: no
   tasks:
     - name: Authenticate with FMC API
