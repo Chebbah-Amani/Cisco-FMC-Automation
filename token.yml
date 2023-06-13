@@ -5,7 +5,7 @@
   gather_facts: no
   tasks:
     - name: Authenticate with FMC API
-      uri:
+      ansible.builtin.uri:
         url: https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken
         method: POST
         headers:
