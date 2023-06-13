@@ -6,14 +6,14 @@
   tasks:
     - name: Authenticate with FMC API
       uri:
-        url: https://{{ fmc_address }}/api/fmc_platform/v1/auth/generatetoken
+        url: https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken
         method: POST
         headers:
           Content-Type: "application/json"
         body_format: json
         body:
-          username: "{{ fmc_username }}"
-          password: "{{ fmc_password }}"
+          username: "admin"
+          password: "Admin4123'"
         validate_certs: no
       register: token_response
 
