@@ -9,13 +9,14 @@
       ansible.builtin.uri:
         url: https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken
         method: POST
+        validate_certs: no
         headers:
           Content-Type: "application/json"
         body_format: json
         body:
           username: "admin"
           password: "Admin4123'"
-        validate_certs: no
+     
       register: token_response
 
     - name: Set access token fact
