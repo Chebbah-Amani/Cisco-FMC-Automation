@@ -5,25 +5,17 @@
   become : false
   gather_facts: no
   tasks:
-    - name: Authenticate with FMC API
-      ansible.builtin.uri:
-        url: https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken
+    tasks:
+    - name: Get authentication token
+      uri:
+        url: "https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken"
         method: POST
-        validate_certs: no
         headers:
-          Content-Type: "application/json"
-        body_format: json
-        body:
-          username: "adminapi"
-          password: "Ad+in123"
-     
+          Authorization: "Basic {{ adminapi | Ad+in123 }}"
+        return_content: yes
+        validate_certs: no
       register: token_response
 
-    - name: Set access token fact
-      set_fact:
-        access_token: "{{ token_response.json.access_token }}"
-
-    - name: Debug access token
+    - name: Display token
       debug:
-        var: access_token
-        
+        var: token_response.json.access_token
