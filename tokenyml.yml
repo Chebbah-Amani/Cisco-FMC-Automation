@@ -17,7 +17,7 @@
         validate_certs: no
       register: token_response
 
-    - name: Set access token
+    - name: Extract access token from headers
       set_fact:
         access_token: "{{ token_response.headers['x_auth_access_token'] }}"
 
