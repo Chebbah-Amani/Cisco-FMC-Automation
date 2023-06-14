@@ -12,7 +12,6 @@
         method: POST
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-        return_headers: yes
         return_content: yes
         validate_certs: no
       register: token_response
