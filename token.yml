@@ -5,7 +5,6 @@
   become : false
   gather_facts: no
   tasks:
-    tasks:
     - name: Get authentication token
       uri:
         url: "https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken"
