@@ -13,6 +13,7 @@
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
         return_content: yes
+        validate_certs: no
       register: token_response
 
     - name: Get Access Control Policies
@@ -26,6 +27,7 @@
           X-auth-domain-uuid: "{{ token_response.json.domain_uuid }}"
           Accept: "application/json"
           return_content: yes
+          validate_certs: no
       register: access_policies
 
     - name: Display token
