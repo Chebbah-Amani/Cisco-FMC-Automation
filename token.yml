@@ -14,8 +14,8 @@
           Content-Type: "application/json"
         body_format: json
         body:
-          username: "apiuser"
-          password: "Cisco123"
+          username: "admin"
+          password: "Admin123"
      
       register: token_response
 
