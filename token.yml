@@ -17,6 +17,8 @@
         validate_certs: no
       register: token_response
 
-    - name: Display token
-      debug:
-        var: token_response.json.access_token
+  - name: Display token
+  debug:
+    var: 
+      - token_response.json.access_token
+      - token_response.json.x_auth_access_token
