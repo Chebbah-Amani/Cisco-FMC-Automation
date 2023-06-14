@@ -20,5 +20,5 @@
     - name: Print headers
       debug:
         var: response.headers
-      debug:
-        var: access_token
+      
+         
