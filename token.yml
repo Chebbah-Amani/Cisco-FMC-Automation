@@ -4,7 +4,7 @@
   connection : httpapi
   become : false
   gather_facts: no
-   vars:
+  vars:
     credentials: "adminapi:Ad+in123"
   tasks:
     - name: Get authentication token
