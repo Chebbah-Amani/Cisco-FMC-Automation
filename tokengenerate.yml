@@ -23,7 +23,7 @@
       
     - name: Set access token
       set_fact:
-        access_token: "{{ token_response.response.headers['x_auth_access_token'] }}"
+        access_token: "{{ token_response.headers['x_auth_access_token'] }}"
 
     - name: Get Access Control Policies
       ansible.builtin.uri:
