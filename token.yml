@@ -14,8 +14,8 @@
           Content-Type: "application/json"
         body_format: json
         body:
-          username: "admin"
-          password: "Admin4123'"
+          username: "apiuser"
+          password: "Cisco123'"
      
       register: token_response
 
@@ -26,3 +26,4 @@
     - name: Debug access token
       debug:
         var: access_token
+        
