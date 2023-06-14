@@ -12,6 +12,7 @@
         url: "https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken"
         return_content: no
         method: GET
+        validate_certs: no
       register: response
       
     - name: Print headers
