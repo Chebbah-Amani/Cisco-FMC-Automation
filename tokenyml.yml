@@ -1,0 +1,37 @@
+---
+- name: Generate FMC API access token
+  hosts: webservers
+  connection: httpapi
+  become: false
+  gather_facts: no
+  vars:
+    credentials: "apiuser:Cisco123"
+  tasks:
+    - name: Get authentication token
+      ansible.builtin.uri:
+        url: "https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken"
+        method: POST
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+        return_content: yes
+        validate_certs: no
+      register: token_response
+
+    - name: Set access token
+      set_fact:
+        access_token: "{{ token_response.headers['x_auth_access_token'] }}"
+
+    - name: Get Access Control Policies
+      ansible.builtin.uri:
+        url: "https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies"
+        method: GET
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+          X-auth-access-token: "{{ access_token }}"
+          Accept: "application/json"
+          validate_certs: no
+      register: access_policies
+
+    - name: Display token
+      debug:
+        var: access_token
