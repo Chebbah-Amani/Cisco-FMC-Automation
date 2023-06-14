@@ -27,9 +27,10 @@
           X-auth-refresh-token: "{{ token_response.json.x_auth_refresh_token }}"
           X-auth-domain-uuid: "{{ token_response.json.domain_uuid }}"
           Accept: "application/json"
+          return_content: yes
         validate_certs: no
       register: access_policies
 
     - name: Display token
       debug:
-        var: token_response.json.access_token
+        var: access_policies.json
