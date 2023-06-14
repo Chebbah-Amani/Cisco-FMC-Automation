@@ -15,7 +15,7 @@
         body_format: json
         body:
           username: "apiuser"
-          password: "Cisco123'"
+          password: "Cisco123"
      
       register: token_response
 
