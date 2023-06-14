@@ -5,7 +5,7 @@
   become : false
   gather_facts: no
   vars:
-    credentials: "adminapi:Ad+in123"
+    credentials: "apiuser:Cisco123"
   tasks:
     - name: Get authentication token
       uri:
