@@ -7,7 +7,7 @@
     credentials: "apiuser:Cisco123"
   tasks:
     - name: Get authentication token
-      uri:
+       ansible.builtin.uri:
         url: "https://150.1.7.242/api/fmc_platform/v1/auth/generatetoken"
         method: POST
         headers:
@@ -26,7 +26,7 @@
         access_token: "{{ token_response.response.headers['x_auth_access_token'] }}"
 
     - name: Get Access Control Policies
-      uri:
+       ansible.builtin.uri:
         url: "https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies"
         method: GET
         headers:
