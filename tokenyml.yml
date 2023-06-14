@@ -13,8 +13,8 @@
         method: POST
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-        return_content: yes
-        validate_certs: no
+          return_content: yes
+          validate_certs: no
       register: token_response
 
     - name: Set access token
