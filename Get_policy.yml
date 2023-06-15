@@ -5,7 +5,7 @@
   become: false
   gather_facts: no
   vars:
-    credentials: "adminapi:Ad+in123"
+    credentials: "apiuser:Cisco123"
   tasks:
     - name: Get Access Control Policies
       ansible.builtin.uri:
@@ -14,7 +14,7 @@
         validate_certs: no
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token: "6f7be42f-6460-44b0-8599-1eb81e2e7d20"
+          X-auth-access-token: "85c3b63a-ee57-405b-83d2-54e7504eb04f"
       register: access_policies
 
     - name: Display token
