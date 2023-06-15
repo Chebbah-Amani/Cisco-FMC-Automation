@@ -1,31 +1,24 @@
-- name: Generate FMC API access token
-  hosts: FMC
+---
+- name: Get Policies from Cisco FMC
+  hosts: webservers
+  connection : httpapi
+  become: false
   gather_facts: no
+  vars:
+    credentials: "apiuser:Cisco123"
   tasks:
-    - name: Authenticate with FMC API
-      command: "curl -k -H 'Content-Type: application/json' -X POST https://{{ fmc_address }}/api/fmc_platform/v1/auth/generatetoken -d '{\"username\":\"{{ fmc_username }}\",\"password\":\"{{ fmc_password }}\"}'"
-      register: curl_result
-      ignore_errors: true
-
-    - name: Set access token fact
-      set_fact:
-        access_token: "{{ curl_result.stdout | from_json | json_query('Token') }}"
-
-    - name: Debug access token
-      debug:
-       var: access_token
-
-
-    - name: Get device information
+    - name: Get Network Analysis Policies
       uri:
-        url: "https://{{ fmc_address }}/api/fmc_config/v1/domain/{{ domain_uuid }}/devices/{{ inventory_hostname }}"
+        url: " https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/devices/devicerecords"
         method: GET
-        headers:
-          Content-Type: "application/json"
-          X-auth-access-token: "{{ access_token }}"
         validate_certs: no
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+          X-auth-access-token: "47697db0-d447-435d-bb53-b244a290d508"
+        
       register: device_info
 
-    - name: Display device information
+    - name: Display Results
       debug:
-        var: device_info
+        var: device_info.json
+      
