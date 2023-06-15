@@ -5,7 +5,7 @@
   become: false
   gather_facts: no
   vars:
-    credentials: "apiuser:Cisco123"
+    credentials: "adminapi:Ad+in123"
   tasks:
     - name: Get Access Control Policies
       ansible.builtin.uri:
