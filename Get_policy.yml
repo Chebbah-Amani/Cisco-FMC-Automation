@@ -15,7 +15,6 @@
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
           X-auth-access-token: "6f7be42f-6460-44b0-8599-1eb81e2e7d20"
-        Accept: "application/json"
       register: access_policies
 
     - name: Display token
