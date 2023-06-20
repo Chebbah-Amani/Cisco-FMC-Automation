@@ -7,7 +7,7 @@
     credentials: "apiuser:Cisco123"
     fmc_host: 150.1.7.242
     domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
-    token: a117f19b-e07d-4782-8fd5-4313f2d2e8ed
+    token: 795a3714-0966-4b58-937c-1121fc665b56
     device_name: FTD
     device_host_name: 150.1.7.16
     device_reg_key: cisco
