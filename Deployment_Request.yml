@@ -6,7 +6,7 @@
   vars:
     credentials: "apiuser:Cisco123"
     fmc_host: 150.1.7.242
-    token: 06e78baf-a0be-479d-99ae-121c4f26d551
+    token: 8506dd95-b51c-4f9f-9991-6b6973e9464a
     domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
   tasks:
     - name: Deployment
@@ -19,16 +19,7 @@
           X-auth-access-token: "{{ token }}"
           Content-Type: "application/json"
         body_format: json
-        body: |
-          {
-            "type": "DeploymentRequest",
-            "version": "0",
-            "forceDeploy": true,
-            "ignoreWarning": true,
-            "deviceList": [
-              "d161c432-b257-11ed-be69-a6d8d9f33bc5"
-            ]
-          }
+       
       register: deployment
 
     - name: Display Deployment Response
