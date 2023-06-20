@@ -1,25 +1,24 @@
 ---
 - name: Get Group Devices Cisco FMC
   hosts: webservers
-  connection : httpapi
+  connection: httpapi
   become: false
   gather_facts: no
   vars:
-    credentials: "apiuser:Cisco123"
+    credentials: apiuser:Cisco123
     token: eff12252-4ddd-4018-ab88-4604f041e734
   tasks:
     - name: Get Device Group
       uri:
-        url: " https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/devicegroups/devicegrouprecords"
+        url: "
+          https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9e\
+          d49b625f/devicegroups/devicegrouprecords"
         method: GET
         validate_certs: no
         headers:
-          Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token:"{{ token }}"
-        
+          Authorization: Basic {{ credentials | b64encode }}
+          X-auth-access-token: "{{ token }}"
       register: device_info
-
     - name: Display Results
       debug:
         var: device_info.json
-      
