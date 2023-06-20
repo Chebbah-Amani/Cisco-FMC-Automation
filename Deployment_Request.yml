@@ -1,4 +1,3 @@
----
 - name: Get FMC Policy Assignments
   hosts: webservers
   connection: httpapi
@@ -10,18 +9,28 @@
     token: 06e78baf-a0be-479d-99ae-121c4f26d551
     domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
   tasks:
-    - name: Get Policy Assignments
-      ansible.builtin.uri:
+    - name: Deployment
+      uri:
         url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/deployment/deploymentrequests"
-        method: POST
+        method: GET
         validate_certs: no
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
           X-auth-access-token: "{{ token }}"
+          Content-Type: "application/json"
+        body_format: json
+        body: |
+          {
+            "type": "DeploymentRequest",
+            "version": "0",
+            "forceDeploy": true,
+            "ignoreWarning": true,
+            "deviceList": [
+              "d161c432-b257-11ed-be69-a6d8d9f33bc5"
+            ]
+          }
+      register: deployment
 
-          
-      register: policy_assignments
-
-    - name: Display Policy Assignments
+    - name: Display Deployment Response
       debug:
-        var: policy_assignments.json
+        var: deployment.json
