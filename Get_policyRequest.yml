@@ -14,7 +14,7 @@
         validate_certs: no
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token: "47697db0-d447-435d-bb53-b244a290d508"
+          X-auth-access-token: "75e03f9c-13d8-476d-b829-80d0270f4cda"
         
       register: device_info
 
