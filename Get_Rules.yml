@@ -7,7 +7,7 @@
     credentials: "apiuser:Cisco123"
     access_policy_name: "My Access Policy"  # Update with the desired access policy name
     fmc_host: "150.1.7.242"  # Update with the FMC host IP
-
+    token:"e477f6b9-81ae-433d-831f-7298e62ad21f"
   tasks:
     - name: Get Access Control Policy ID
       uri:
@@ -16,7 +16,7 @@
         validate_certs: no
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token: "17f5fb30-15c3-46c1-a4ac-6863a7bb25bc"
+          X-auth-access-token: "{{ token }}"
       register: access_policies
 
     - name: Find Access Policy ID
@@ -32,7 +32,7 @@
         validate_certs: no
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token: "17f5fb30-15c3-46c1-a4ac-6863a7bb25bc"
+          X-auth-access-token: "{{ token }}"
       register: access_rules
 
     - name: Display Results
