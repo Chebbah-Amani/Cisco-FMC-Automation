@@ -6,9 +6,9 @@
   gather_facts: no
   vars:
     credentials: apiuser:Cisco123
-    access_policy_name: {{ hostvars[FMC_Rules8inventory.yml]['access_policy_name'] }}
+    access_policy_name: {{ hostvars[FMC_Rules_inventory.yml]['access_policy_name'] }}
     fmc_host: 150.1.7.242
-    token: e477f6b9-81ae-433d-831f-7298e62ad21f
+    token: 75e03f9c-13d8-476d-b829-80d0270f4cda
   tasks:
     - name: Get Access Control Policy ID
       uri:
