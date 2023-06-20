@@ -8,7 +8,7 @@
     credentials: apiuser:Cisco123
     access_policy_name: "{{ hostvars[inventory_hostname]['access_policy_name'] }}"
     fmc_host: 150.1.7.242
-    token: 75e03f9c-13d8-476d-b829-80d0270f4cda
+    token: a117f19b-e07d-4782-8fd5-4313f2d2e8ed
   tasks:
     - name: Get Access Control Policy ID
       uri:
