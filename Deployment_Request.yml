@@ -1,42 +1,27 @@
 ---
-- name: Deploy Access Control Policy to FMC
-  hosts: FMC
-  connection: local
+- name: Get FMC Policy Assignments
+  hosts: webservers
+  connection: httpapi
+  become: false
   gather_facts: no
   vars:
-    fmc_host: <150.1.7.242>
-    fmc_username: <admin>
-    fmc_password: <Admin123>
-    domain_uuid: <e276abec-e0f2-11e3-8169-6d9ed49b625f> 
-    policy_name: "{{ tower_policy_name }}"
+    credentials: "apiuser:Cisco123"
+    fmc_host: 150.1.7.242
+    token: 06e78baf-a0be-479d-99ae-121c4f26d551
+    domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
   tasks:
-    - name: Get Access Control Policy ID
-      uri:
-        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_uuid }}/policy/accesspolicies?filter=name:{{ policy_name }}"
-        method: GET
-        user: "{{ fmc_username }}"
-        password: "{{ fmc_password }}"
-        headers:
-          Accept: "application/json"
-        validate_certs: no
-      register: access_policy
-
-    - name: Deploy Access Control Policy
-      uri:
-        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_uuid }}/policy/accesspolicies/{{ access_policy.json['items'][0]['id'] }}/deployabledevices"
+    - name: Get Policy Assignments
+      ansible.builtin.uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/deployment/deploymentrequests"
         method: POST
-        user: "{{ fmc_username }}"
-        password: "{{ fmc_password }}"
-        headers:
-          Accept: "application/json"
-          Content-Type: "application/json"
-        body_format: json
         validate_certs: no
-        body:
-          forceDeploy: true
-          type: "PolicyDeploymentRequest"
-      register: deploy_policy
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+          X-auth-access-token: "{{ token }}"
 
-    - name: Display Results
+          
+      register: policy_assignments
+
+    - name: Display Policy Assignments
       debug:
-        var: deploy_policy.json
+        var: policy_assignments.json
