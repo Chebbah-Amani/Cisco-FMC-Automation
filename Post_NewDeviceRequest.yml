@@ -1,0 +1,51 @@
+- name: Create Device in Cisco FMC
+  hosts: webservers
+  connection: httpapi
+  become: false
+  gather_facts: no
+  vars:
+    credentials: "apiuser:Cisco123"
+    fmc_host: 150.1.7.242
+    domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
+    token: 75e03f9c-13d8-476d-b829-80d0270f4cda
+    device_name: FTD
+    device_host_name: 150.1.7.16
+    device_nat_id: cisco123
+    device_reg_key: cisco
+    access_policy_id: accessPolicyUUID
+  tasks:
+    - name: Create Device
+      uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/devices/devicerecords"
+        method: POST
+        validate_certs: no
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+          X-auth-access-token: "{{ token }}"
+          Content-Type: "application/json"
+        body: |
+          {
+            "name": "{{ device_name }}",
+            "hostName": "{{ device_host_name }}",
+            "natID": "{{ device_nat_id }}",
+            "regKey": "{{ device_reg_key }}",
+            "type": "Device",
+            "license_caps": [
+              "MALWARE",
+              "URLFilter",
+              "PROTECT",
+              "CONTROL",
+              "VPN"
+            ],
+            "accessPolicy": {
+              "id": "{{ access_policy_id }}",
+              "type": "AccessPolicy"
+            }
+          }
+      register: device_result
+
+    - name: Display Result
+      debug:
+        var: device_result.json
+
+      
