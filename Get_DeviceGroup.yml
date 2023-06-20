@@ -5,7 +5,7 @@
   gather_facts: no
   vars:
     credentials: "apiuser:Cisco123"
-    token: "eff12252-4ddd-4018-ab88-4604f041e734"
+    token: "100dd892-5d6a-492e-acf3-6d97c5558472"
     domain_id: "e276abec-e0f2-11e3-8169-6d9ed49b625f"
   tasks:
     - name: Get Device Group
