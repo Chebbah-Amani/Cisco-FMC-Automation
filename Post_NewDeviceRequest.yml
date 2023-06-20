@@ -10,10 +10,25 @@
     token: a117f19b-e07d-4782-8fd5-4313f2d2e8ed
     device_name: FTD
     device_host_name: 150.1.7.16
-    device_nat_id: cisco123
     device_reg_key: cisco
-    access_policy_id: accessPolicyUUID
+    access_policy_name: "{{ hostvars[inventory_hostname]['access_policy_name'] }}"
   tasks:
+    - name: Get Access Control Policy ID
+      uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/policy/accesspolicies"
+        method: GET
+        validate_certs: no
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+          X-auth-access-token: "{{ token }}"
+      register: access_policies
+
+    - name: Find Access Policy ID
+      set_fact:
+        access_policy_id: "{{ item.id }}"
+      loop: "{{ access_policies.json['items'] }}"
+      when: item.name == access_policy_name
+
     - name: Create Device
       uri:
         url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/devices/devicerecords"
@@ -27,16 +42,8 @@
           {
             "name": "{{ device_name }}",
             "hostName": "{{ device_host_name }}",
-            "natID": "{{ device_nat_id }}",
             "regKey": "{{ device_reg_key }}",
             "type": "Device",
-            "license_caps": [
-              "MALWARE",
-              "URLFilter",
-              "PROTECT",
-              "CONTROL",
-              "VPN"
-            ],
             "accessPolicy": {
               "id": "{{ access_policy_id }}",
               "type": "AccessPolicy"
@@ -47,5 +54,3 @@
     - name: Display Result
       debug:
         var: device_result.json
-
-      
