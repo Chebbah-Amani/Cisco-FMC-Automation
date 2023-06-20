@@ -6,7 +6,7 @@
   gather_facts: no
   vars:
     credentials: apiuser:Cisco123
-    access_policy_name: FTD_Policy
+    access_policy_name: {{ hostvars[FMC_Rules8inventory.yml]['access_policy_name'] }}
     fmc_host: 150.1.7.242
     token: e477f6b9-81ae-433d-831f-7298e62ad21f
   tasks:
