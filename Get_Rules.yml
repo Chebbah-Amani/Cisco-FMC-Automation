@@ -7,7 +7,7 @@
     credentials: "apiuser:Cisco123"
     access_policy_name: "My Access Policy"  # Update with the desired access policy name
     fmc_host: "150.1.7.242"  # Update with the FMC host IP
-    token:"e477f6b9-81ae-433d-831f-7298e62ad21f"
+    token: "e477f6b9-81ae-433d-831f-7298e62ad21f"
   tasks:
     - name: Get Access Control Policy ID
       uri:
