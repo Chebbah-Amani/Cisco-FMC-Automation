@@ -6,6 +6,7 @@
   gather_facts: no
   vars:
     credentials: "apiuser:Cisco123"
+    token: eff12252-4ddd-4018-ab88-4604f041e734
   tasks:
     - name: Get Device Group
       uri:
@@ -14,7 +15,7 @@
         validate_certs: no
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token: "17f5fb30-15c3-46c1-a4ac-6863a7bb25bc"
+          X-auth-access-token:"{{ token }}"
         
       register: device_info
 
