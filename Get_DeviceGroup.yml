@@ -10,7 +10,7 @@
   tasks:
     - name: Get Device Group
       ansible.builtin.uri:
-        url: "https://150.1.7.242/api/fmc_config/v1/domain/{{ domain_id }}/devicegroups/devicegrouprecords"
+        url: "https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/devicegroups/devicegrouprecords"
         method: GET
         validate_certs: no
         headers:
