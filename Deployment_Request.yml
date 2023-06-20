@@ -6,7 +6,7 @@
   vars:
     credentials: "apiuser:Cisco123"
     fmc_host: 150.1.7.242
-    token: 8506dd95-b51c-4f9f-9991-6b6973e9464a
+    token: a117f19b-e07d-4782-8fd5-4313f2d2e8ed
     domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
   tasks:
     - name: Deployment
