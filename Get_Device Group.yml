@@ -1,5 +1,5 @@
 ---
-- name: Get Policies from Cisco FMC
+- name: Get Group Devices Cisco FMC
   hosts: webservers
   connection : httpapi
   become: false
@@ -7,7 +7,7 @@
   vars:
     credentials: "apiuser:Cisco123"
   tasks:
-    - name: Get Network Analysis Policies
+    - name: Get Device Group
       uri:
         url: " https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/devicegroups/devicegrouprecords"
         method: GET
