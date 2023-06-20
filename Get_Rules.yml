@@ -6,7 +6,7 @@
   gather_facts: no
   vars:
     credentials: apiuser:Cisco123
-    access_policy_name: "{{ hostvars[150.1.7.242]['access_policy_name'] }}"
+    access_policy_name: "{{ hostvars[inventory_hostname]['access_policy_name'] }}"
     fmc_host: 150.1.7.242
     token: 75e03f9c-13d8-476d-b829-80d0270f4cda
   tasks:
