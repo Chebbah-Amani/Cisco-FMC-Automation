@@ -19,11 +19,11 @@
           X-auth-access-token: "{{ token }}"
       register: access_policies
 
-    - name: Find Access Policy ID
-      set_fact:
-        access_policy_id: "{{ item.value.id }}"
-      loop: "{{ access_policies.json | dict2items }}"
-      when: item.value.name == access_policy_name
+     - name: Find Access Policy ID
+       set_fact:
+        access_policy_id: "{{ item.id }}"
+       loop: "{{ access_policies.json['items'] }}"
+       when: item.name == access_policy_name
 
     - name: Get Access Control Rules
       uri:
