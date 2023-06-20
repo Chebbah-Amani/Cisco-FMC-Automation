@@ -1,40 +1,41 @@
+---
 - name: Get Access Control Rules from Cisco FMC
   hosts: webservers
   connection: httpapi
   become: false
   gather_facts: no
   vars:
-    credentials: "apiuser:Cisco123"
-    access_policy_name: "FTD_Policy"  # Update with the desired access policy name
-    fmc_host: "150.1.7.242"  # Update with the FMC host IP
-    token: "e477f6b9-81ae-433d-831f-7298e62ad21f"
+    credentials: apiuser:Cisco123
+    access_policy_name: FTD_Policy
+    fmc_host: 150.1.7.242
+    token: e477f6b9-81ae-433d-831f-7298e62ad21f
   tasks:
     - name: Get Access Control Policy ID
       uri:
-        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies"
+        url: https://{{ fmc_host
+          }}/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies
         method: GET
         validate_certs: no
         headers:
-          Authorization: "Basic {{ credentials | b64encode }}"
+          Authorization: Basic {{ credentials | b64encode }}
           X-auth-access-token: "{{ token }}"
       register: access_policies
-
-     - name: Find Access Policy ID
-       set_fact:
+    - name: Find Access Policy ID
+      set_fact:
         access_policy_id: "{{ item.id }}"
-       loop: "{{ access_policies.json['items'] }}"
-       when: item.name == access_policy_name
-
+      loop: "{{ access_policies.json['items'] }}"
+      when: item.name == access_policy_name
     - name: Get Access Control Rules
       uri:
-        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies/{{ access_policy_id }}/accessrules"
+        url: https://{{ fmc_host
+          }}/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies/{{
+          access_policy_id }}/accessrules
         method: GET
         validate_certs: no
         headers:
-          Authorization: "Basic {{ credentials | b64encode }}"
+          Authorization: Basic {{ credentials | b64encode }}
           X-auth-access-token: "{{ token }}"
       register: access_rules
-
     - name: Display Results
       debug:
         var: access_rules.json
