@@ -1,0 +1,33 @@
+---
+- name: Create FMC Access Policy
+  hosts: webservers
+  connection: httpapi
+  become: false
+  gather_facts: no
+  vars:
+    credentials: "adminapi:Ad+in123"
+    fmc_host: 150.1.7.242
+    domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
+    token: 5d29e7e5-d303-4712-bda2-4aa118eed483
+    access_policy_name: NGIPS_ansible
+
+  tasks:
+    - name: Create Access Policy
+      uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/policy/accesspolicies"
+        method: POST
+        validate_certs: no
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+          X-auth-access-token: "{{ token }}"
+          Content-Type: "application/json"
+        body: |
+          {
+            "name": "{{ access_policy_name }}",
+            "type": "AccessPolicy"
+          }
+      register: access_policy_result
+
+    - name: Display Result
+      debug:
+        var: access_policy_result.json
