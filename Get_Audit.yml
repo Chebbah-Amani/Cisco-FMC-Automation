@@ -5,7 +5,7 @@
   gather_facts: no
   vars:
     credentials: "apiuser:Cisco123"
-    token: "8506dd95-b51c-4f9f-9991-6b6973e9464a"
+    token: "cd17c326-d9bf-40a3-baa8-36e8cd615a05"
     domain_id: "e276abec-e0f2-11e3-8169-6d9ed49b625f"
   tasks:
     - name: Get Audit Object
