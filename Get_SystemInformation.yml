@@ -1,0 +1,23 @@
+- name: Get System Information Cisco FMC
+  hosts: webservers
+  connection: httpapi
+  become: false
+  gather_facts: no
+  vars:
+    credentials: "apiuser:Cisco123"
+    token: "8506dd95-b51c-4f9f-9991-6b6973e9464a"
+    domain_id: "e276abec-e0f2-11e3-8169-6d9ed49b625f"
+  tasks:
+    - name: Get System Information
+      ansible.builtin.uri:
+        url: "https://150.1.7.242/api/fmc_platform/v1/info/serverversion"
+        method: GET
+        validate_certs: no
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+          X-auth-access-token: "{{ token }}"
+      register: system_info
+
+    - name: Display Results
+      ansible.builtin.debug:
+        var: system_info.json
