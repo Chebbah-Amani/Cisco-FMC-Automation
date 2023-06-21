@@ -12,7 +12,7 @@
     access_policy_name: NGIPS_ansible
   tasks:
     - name: Create Access Policy
-      ansible.builtin.uri:
+      uri:
         url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/policy/accesspolicies"
         method: POST
         validate_certs: no
@@ -28,10 +28,8 @@
               "action": "BLOCK"
             }
           }
+        status_code: 201
       register: access_policy_result
-      status_code:
-        - 200
-        - 201
 
     - name: Display Result
       debug:
