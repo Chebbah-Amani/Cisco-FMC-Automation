@@ -8,7 +8,7 @@
     credentials: adminapi:Ad+in123
     fmc_host: 150.1.7.242
     domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
-    token: 1ec978a1-9faf-4c88-9305-8c6aa5e88f63
+    token: 8babc606-dcef-4cb6-b70b-577290162afe
     access_policy_name: NGIPS_ansible
   tasks:
     - name: Create Access Policy
