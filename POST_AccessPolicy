@@ -14,13 +14,15 @@
         validate_certs: no
         headers:
           Authorization: Basic {{ credentials | b64encode }}
-          X-auth-access-token: 8d0e0481-fbe1-485a-a0ef-46fbccdc5043
+          X-auth-access-token: 584df0c0-3727-463e-ab69-f4fccd8d574f
         body:
-          name: "New Access Policy"
-          defaultAction:
-            action: "BLOCK"
-          logBegin: false
-          type: "AccessPolicy"
+          {
+                  "type": "AccessPolicy",
+                  "name": "NGIPSpostman2",
+                  "defaultAction": {
+                      "action": "BLOCK"
+                                   }
+          }
       register: access_policies
     - name: Display token
       debug:
