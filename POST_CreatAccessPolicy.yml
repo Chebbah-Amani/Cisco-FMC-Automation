@@ -1,3 +1,4 @@
+---
 - name: Create FMC Access Policy
   hosts: webservers
   connection: httpapi
@@ -14,21 +15,16 @@
       uri:
         url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/policy/accesspolicies"
         method: POST
-        validate_certs: no
+        validate_certs: no  # Disable certificate verification
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
           X-auth-access-token: "{{ token }}"
-  
-        body: 
-          {
-            "type": "AccessPolicy",
-            "name": "{{ access_policy_name }}",
-            "defaultAction": {
-              "action": "BLOCK"
-            }
-          }
+        body:
+          type: "AccessPolicy"
+          name: "{{ access_policy_name }}"
+          defaultAction:
+            action: "BLOCK"
       register: access_policy_result
-    
 
     - name: Display Result
       debug:
