@@ -17,7 +17,8 @@
         return_content: yes
        
       register: token_response
-
+      failed_when: response.status not in [200, 204]
+      
     - name: Display token
       debug:
         var: 
