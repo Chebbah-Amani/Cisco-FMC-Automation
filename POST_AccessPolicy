@@ -16,10 +16,11 @@
           Authorization: Basic {{ credentials | b64encode }}
           X-auth-access-token: 8d0e0481-fbe1-485a-a0ef-46fbccdc5043
         body:
-          type: AccessPolicy
-          name: NGIPSpostman2
+          name: "New Access Policy"
           defaultAction:
-            action: BLOCK
+            action: "BLOCK"
+          logBegin: false
+          type: "AccessPolicy"
       register: access_policies
     - name: Display token
       debug:
