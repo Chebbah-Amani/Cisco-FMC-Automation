@@ -15,13 +15,10 @@
           Authorization: " {{ credentials }}"
           X-auth-access-token: 584df0c0-3727-463e-8869-f4fccd8d574f
         body:
-          {
-                  "type": "AccessPolicy",
-                  "name": "NGIPSansible",
-                  "defaultAction": {
-                      "action": "BLOCK"
-                                   }
-          }
+          name: "New Access Policy"
+          type: "AccessPolicy"
+          defaultAction:
+            action: "BLOCK"
       register: access_policies
     - name: Display policies
       debug:
