@@ -13,7 +13,7 @@
         validate_certs: no
         headers:
           Authorization: " {{ credentials }}"
-          X-auth-access-token: 584df0c0-3727-463e-8869-f4fccd8d574f
+          X-auth-access-token: 6170fec4-3afa-435e-af9b-fb4661255d98
         body:
           name: "New Access Policy"
           type: "AccessPolicy"
