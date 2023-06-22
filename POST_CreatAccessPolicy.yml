@@ -4,7 +4,7 @@
   become: false
   gather_facts: no
   vars:
-    credentials: admin:Admin4123'
+    credentials: adminapi:Ad+in4123
     fmc_host: 150.1.7.242
     domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
     token: ed059920-2649-4561-9727-91f1243e7033
@@ -18,7 +18,7 @@
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
           X-auth-access-token: "{{ token }}"
-          Content-Type: application/json
+  
         body: |
           {
             "type": "AccessPolicy",
