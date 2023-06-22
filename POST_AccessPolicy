@@ -1,20 +1,19 @@
 ---
-- name: Gte FMC access policies
+- name: Create FMC access policy
   hosts: webservers
   connection: httpapi
-  become: false
-  gather_facts: no
+
   vars:
-    credentials: adminapi:Ad+in123
+    credentials: admin:Admin123
   tasks:
-    - name: Get Access Control Policies
-      ansible.builtin.uri:
+    - name: Create Access Control Policy
+       uri:
         url: https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies
         method: POST
         validate_certs: no
         headers:
-          Authorization: Basic {{ credentials }}
-          X-auth-access-token: 584df0c0-3727-463e-ab69-f4fccd8d574f
+          Authorization: " {{ credentials }}"
+          X-auth-access-token: 584df0c0-3727-463e-8869-f4fccd8d574f
         body:
           {
                   "type": "AccessPolicy",
@@ -24,6 +23,6 @@
                                    }
           }
       register: access_policies
-    - name: Display token
+    - name: Display policies
       debug:
         var: access_policies.json
