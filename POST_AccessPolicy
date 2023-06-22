@@ -1,32 +1,27 @@
 ---
-- name: Create Access Control Policy
-  hosts: localhost
-  gather_facts: false
-  vars:
-    fmc_host: "150.1.7.242"
-    domain_id: "e276abec-e0f2-11e3-8169-6d9ed49b625f"
-    token: "6170fec4-3afa-435e-af9b-fb4661255d98"
-    credentials: "adminapi:Ad+in123"
-    url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/{{ domain_id }}/policy/accesspolicies"
-    access_policy_name: "NGIPSansible"
+- name: Create FMC access policy
+  hosts: webservers
+  connection: httpapi
 
+  vars:
+    credentials: adminapi:Ad+in123
   tasks:
     - name: Create Access Control Policy
       uri:
-        url: "{{ url }}"
+        url: 
+        https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies
         method: POST
-        headers:
-          Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token: "{{ token }}"
-        body:
-          type: "AccessPolicy"
-          name: "{{ access_policy_name }}"
-          defaultAction:
-            action: "BLOCK"
-        return_content: yes
         validate_certs: no
-      register: response
+        headers:
+          Authorization: "{{ credentials }}"
+          X-auth-access-token: 6170fec4-3afa-435e-af9b-fb4661255d98
+        body:
+          type: AccessPolicy
+          name: NGIPSansible
+          defaultAction:
+            action: BLOCK
+      register: access_policies
 
-    - name: Display Response
+    - name: Display policies
       debug:
-        var: response.content
+        var: access_policies.json
