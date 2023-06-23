@@ -12,7 +12,7 @@
         validate_certs: no
         headers:
           Authorization: "{{ credentials }}"
-          X-auth-access-token: 6170fec4-3afa-435e-af9b-fb4661255d98
+          X-auth-access-token: ad33566e-6b09-4b39-8ec8-97a46e655a11
           Accept: application/json
         body:
           type: AccessPolicy
