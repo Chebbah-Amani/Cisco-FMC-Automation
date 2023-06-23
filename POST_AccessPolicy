@@ -13,12 +13,19 @@
         headers:
           Authorization: "{{ credentials }}"
           X-auth-access-token: 6170fec4-3afa-435e-af9b-fb4661255d98
+          Accept: application/json
         body:
           type: AccessPolicy
           name: NGIPSansible
           defaultAction:
             action: BLOCK
       register: access_policies
+      failed_when: access_policies.status not in [200, 201]  
+
     - name: Display policies
       debug:
         var: access_policies.json
+
+    - name: Display return content
+      debug:
+        var: access_policies.content
