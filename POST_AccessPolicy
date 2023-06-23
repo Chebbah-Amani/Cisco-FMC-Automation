@@ -7,25 +7,23 @@
   tasks:
     - name: Create Access Control Policy
       uri:
-        url: https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/policy/accesspolicies
+        url: https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625fpolicy/accesspolicies
         method: POST
         validate_certs: no
         headers:
           Authorization: "{{ credentials }}"
-          X-auth-access-token: ad33566e-6b09-4b39-8ec8-97a46e655a11
+          X-auth-access-token: 6170fec4-3afa-435e-af9b-fb4661255d98
+          Content-Type: application/json
           Accept: application/json
+        body_format: json
         body:
           type: AccessPolicy
-          name: NGIPSansible
+          name: AccessPolicy1
           defaultAction:
             action: BLOCK
       register: access_policies
-      failed_when: access_policies.status not in [200, 201]  
+      failed_when: access_policies.status not in [200, 201]
 
     - name: Display policies
       debug:
         var: access_policies.json
-
-    - name: Display return content
-      debug:
-        var: access_policies.content
