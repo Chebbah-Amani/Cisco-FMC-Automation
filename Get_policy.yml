@@ -14,7 +14,7 @@
         validate_certs: no
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token: "5d29e7e5-d303-4712-bda2-4aa118eed483"
+          X-auth-access-token: "9e012008-f545-4f67-b644-71e8e8a494c9"
       register: access_policies
 
     - name: Display token
