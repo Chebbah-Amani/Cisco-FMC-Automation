@@ -23,7 +23,7 @@
         body:
            ' {
               "type": "AccessPolicy",
-              "name": "NGIPSpostman3",
+              "name": "NGIPSansibel",
               "defaultAction": {
                     "action": "BLOCK"
                                }
