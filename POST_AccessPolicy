@@ -27,7 +27,7 @@
                                }
               }'
         
-     register: access_policies
+      register: access_policies
         
     - name: Display policies
       ansible.builtin.debug:
