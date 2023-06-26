@@ -28,7 +28,7 @@
                     "action": "BLOCK"
                                }
               }'
-        failed_when: access_policies.status not in [200, 201]
+        
         register: access_policies
         
     - name: Display policies
