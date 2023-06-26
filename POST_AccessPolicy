@@ -6,7 +6,7 @@
   vars:
     credentials: adminapi:Ad+in123
     fmc_host: 150.1.7.242
-    token: 61d91bc1-249c-4e86-8dd9-ffe78e41ab1f
+    token: 3b7980b2-0eb6-4e27-ae60-97e5c53f7a43
   tasks:
     - name: Create Access Control Policy
       ansible.builtin.uri:
