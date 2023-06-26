@@ -11,7 +11,8 @@
     device_name: NGIPS2
     device_host_name: 150.1.7.241
     device_reg_key: cisco
-    access_policy_name: "{{ hostvars[inventory_hostname]['access_policy_name'] }}"
+    access_policy_name: NGIPS_PolicyByAnsibel
+   # access_policy_name: "{{ hostvars[inventory_hostname]['access_policy_name'] }}"
   tasks:
     - name: Get Access Control Policy ID
       ansible.builtin.uri:
