@@ -2,28 +2,35 @@
 - name: Create FMC access policy
   hosts: webservers
   connection: httpapi
+  become: false
   vars:
     credentials: adminapi:Ad+in123
+    fmc_host: 150.1.7.242
+    token: 61d91bc1-249c-4e86-8dd9-ffe78e41ab1f
   tasks:
     - name: Create Access Control Policy
-      uri:
-        url: https://150.1.7.242/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625fpolicy/accesspolicies
+      ansible.builtin.uri:
+        url: https://{{
+          fmc_host}}/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625fpolicy/accesspolicies
         method: POST
         validate_certs: no
         headers:
-          Authorization: "{{ credentials }}"
-          X-auth-access-token: 682bb624-6e95-4e3b-9bcc-c101f3ad47c8
+          Authorization: Basic {{ credentials | b64encode }}
+          X-auth-access-token: "{{ token }}"
           Content-Type: application/json
           Accept: application/json
         body_format: json
         body:
-          type: AccessPolicy
-          name: AccessPolicy1
-          defaultAction:
-            action: BLOCK
-      register: access_policies
-      failed_when: access_policies.status not in [200, 201]
-
+           ' {
+              "type": "AccessPolicy",
+              "name": "NGIPSpostman3",
+              "defaultAction": {
+                    "action": "BLOCK"
+                               }
+              }'
+        failed_when: access_policies.status not in [200, 201]
+        register: access_policies
+        
     - name: Display policies
-      debug:
+      ansible.builtin.debug:
         var: access_policies.json
