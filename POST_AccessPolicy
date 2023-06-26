@@ -19,15 +19,15 @@
           X-auth-access-token: "{{ token }}"
         body_format: json
         body:
-           {
+           '{
               "type": "AccessPolicy",
               "name": "NGIPSansibel",
               "defaultAction": {
                     "action": "BLOCK"
                                }
-              }
+              }'
         
-        register: access_policies
+     register: access_policies
         
     - name: Display policies
       ansible.builtin.debug:
