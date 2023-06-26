@@ -50,7 +50,7 @@
               "type": "AccessPolicy"
             }
           }'
-         status_code: 202
+        status_code: 202
       register: device_result
 
     - name: Display Result
