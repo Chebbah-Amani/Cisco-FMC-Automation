@@ -27,7 +27,7 @@
       set_fact:
         access_policy_id: "{{ item.id }}"
       loop: "{{ access_policies.json['items'] }}"
-      when: item.name == "{{access_policy_name}}"
+      when: item.name == access_policy_name
 
     - name: Create Device
       ansible.builtin.uri:
