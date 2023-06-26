@@ -24,7 +24,8 @@
               "defaultAction": {
                     "action": "BLOCK"
                                }
-              }'
+            }'
+           status_code: 201
         
       register: access_policies
         
