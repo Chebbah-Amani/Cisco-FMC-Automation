@@ -17,8 +17,6 @@
         headers:
           Authorization: Basic {{ credentials | b64encode }}
           X-auth-access-token: "{{ token }}"
-          Content-Type: application/json
-          Accept: application/json
         body_format: json
         body:
            ' {
