@@ -4,9 +4,9 @@
   connection: httpapi
   become: false
   vars:
-    credentials: "apiuser:Cisco123"
+    credentials: "adminapi:Ad+in123"
     fmc_host: 150.1.7.242
-    token: 3b7980b2-0eb6-4e27-ae60-97e5c53f7a43
+    token: 05850b40-2b61-4803-81b4-45906a21f201
   tasks:
     - name: Create Access Control Policy
       ansible.builtin.uri:
