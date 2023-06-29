@@ -4,7 +4,7 @@
   connection: httpapi
   become: false
   vars:
-    credentials: "adminapi:Ad+in123"
+    credentials: "apiuser:Cisco123"
     fmc_host: 150.1.7.242
     token: 05850b40-2b61-4803-81b4-45906a21f201
   tasks:
