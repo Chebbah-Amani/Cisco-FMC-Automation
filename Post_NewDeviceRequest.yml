@@ -4,7 +4,7 @@
   become: false
   gather_facts: no
   vars:
-    credentials: "apiuser:Cisco123"
+    credentials: "adminapi:Ad+in123"
     fmc_host: 150.1.7.242
     token: dc2616ef-227f-40bd-9aa7-78cb7fffd3f2
     domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
