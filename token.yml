@@ -15,9 +15,9 @@
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
         return_content: yes
-       
+        status_code: 204
       register: token_response
-      failed_when: token_response.status not in [200, 204] #now its work 
+
       
     - name: Display token
       debug:
