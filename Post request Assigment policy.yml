@@ -1,0 +1,51 @@
+---
+- name: Get FMC Policy Assignments
+  hosts: webservers
+  connection: httpapi
+  become: false
+  gather_facts: no
+  vars:
+    credentials: "adminapi:Ad+in123"
+    fmc_host: 150.1.7.242
+    token: 3ab22129-72d8-4779-8472-5276df813bcd
+    domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
+  tasks:
+    - name: Deployment
+      uri:
+        url: "https://{{ fmc_host }}/api/fmc_config/v1/domain/e276abec-e0f2-11e3-8169-6d9ed49b625f/assignment/policyassignments"
+        method: POST
+        validate_certs: no
+        headers:
+          Authorization: "Basic {{ credentials | b64encode }}"
+          X-auth-access-token: "{{ token }}"
+          Content-Type: "application/json"
+        body_format: json
+        body: '{
+            "type": "PolicyAssignment",
+            "policy": {
+              "type": "AccessPolicy",
+              "name": "NGIPS Policy",
+              "id": "00500000-1900-0ed3-0000-008589934595"
+                     },
+            "targets": [
+                        {
+              "id": "d161c432-b257-11ed-be69-a6d8d9f33bc5",
+              "type": "Device",
+              "name": "NGIPS"
+                        }
+                       ]
+                     }'
+      register: deployment
+
+    - name: Display Deployment Response
+      debug:
+        var: deployment.json
+
+
+
+
+
+
+
+
+
