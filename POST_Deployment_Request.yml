@@ -20,8 +20,8 @@
           X-auth-access-token: "{{ token }}"
           Content-Type: "application/json"
         body_format: json
-        body: |
-          {
+        body: 
+          '{
             "type": "DeploymentRequest",
             "version": "0",
             "forceDeploy": true,
@@ -29,7 +29,7 @@
             "deviceList": [
               "d161c432-b257-11ed-be69-a6d8d9f33bc5"
             ]
-          }
+          }'
       register: deployment
 
     - name: Display Deployment Response
