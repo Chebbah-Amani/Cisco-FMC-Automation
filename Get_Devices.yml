@@ -5,7 +5,7 @@
   become: false
   gather_facts: no
   vars:
-    credentials: "apiuser:Cisco123"
+    credentials: "adminapi:Ad+in123"
   tasks:
     - name: Get Network Analysis Policies
       uri:
@@ -14,7 +14,7 @@
         validate_certs: no
         headers:
           Authorization: "Basic {{ credentials | b64encode }}"
-          X-auth-access-token: "17f5fb30-15c3-46c1-a4ac-6863a7bb25bc"
+          X-auth-access-token: "3ab22129-72d8-4779-8472-5276df813bcd"
         
       register: device_info
 
