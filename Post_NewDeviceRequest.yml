@@ -6,7 +6,7 @@
   vars:
     credentials: "adminapi:Ad+in123"
     fmc_host: 150.1.7.242
-    token:fc81cebb-fc48-44a1-a1da-8ce22997f6b7
+    token: fc81cebb-fc48-44a1-a1da-8ce22997f6b7
     domain_id: e276abec-e0f2-11e3-8169-6d9ed49b625f
     device_name: NGIPS2
     device_host_name: 150.1.7.241
