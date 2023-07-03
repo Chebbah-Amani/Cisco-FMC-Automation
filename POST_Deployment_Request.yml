@@ -1,3 +1,4 @@
+---
 - name: Get FMC Policy Assignments
   hosts: webservers
   connection: httpapi
